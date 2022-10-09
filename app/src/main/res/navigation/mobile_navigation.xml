@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_home">
+
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="com.example.buscandohuellas.ui.home.HomeFragment"
+        android:label="@string/title_home"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/navigation_find"
+        android:name="com.example.buscandohuellas.ui.find.FindFragment"
+        android:label="@string/title_find"
+        tools:layout="@layout/fragment_find" />
+
+    <fragment
+        android:id="@+id/navigation_report"
+        android:name="com.example.buscandohuellas.ui.report.ReportFragment"
+        android:label="@string/title_report"
+        tools:layout="@layout/fragment_report_choose" >
+        <action
+            android:id="@+id/registerPetForm"
+            app:destination="@id/registerPetFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_mypets"
+        android:name="com.example.buscandohuellas.ui.mypets.MyPetsFragment"
+        android:label="@string/title_mypets"
+        tools:layout="@layout/fragment_my_pets" />
+    <fragment
+        android:id="@+id/registerPetFragment"
+        android:name="com.example.buscandohuellas.ui.report.register_pet.RegisterPetFragment"
+        android:label="fragment_register_pet"
+        tools:layout="@layout/fragment_register_pet" />
+
+</navigation>

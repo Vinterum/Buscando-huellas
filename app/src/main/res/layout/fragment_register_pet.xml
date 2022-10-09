@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:fillViewport="true"
+    android:importantForAutofill="noExcludeDescendants">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:context=".ui.report.ReportFragment">
+
+        <EditText
+            android:id="@+id/nombreMascota"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:backgroundTint="@android:color/darker_gray"
+            android:ems="10"
+            android:hint="@string/nombre_mascota"
+            android:inputType="textPersonName"
+            android:minHeight="48dp"
+            android:textColor="@color/black"
+            android:textColorHint="@color/hint"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_percent=".80" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/spinner_sexo"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:hint="@string/sexo"
+            android:textColor="@color/black"
+            android:textColorHint="@color/hint"
+            app:boxBackgroundColor="@color/k_background"
+            app:boxStrokeColor="@android:color/darker_gray"
+            app:layout_constraintEnd_toEndOf="@+id/nombreMascota"
+            app:layout_constraintHorizontal_bias="0.134"
+            app:layout_constraintStart_toStartOf="@+id/nombreMascota"
+            app:layout_constraintTop_toBottomOf="@+id/nombreMascota"
+            app:layout_constraintWidth_percent="0.8">
+
+            <AutoCompleteTextView
+                android:id="@+id/filled_sexo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="none"
+                android:textColor="@color/black"></AutoCompleteTextView>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/spinner_raza"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:hint="@string/raza"
+            android:textColor="@color/black"
+            android:textColorHint="@color/hint"
+            app:boxBackgroundColor="@color/k_background"
+            app:boxStrokeColor="@android:color/darker_gray"
+            app:layout_constraintEnd_toEndOf="@+id/spinner_sexo"
+            app:layout_constraintHorizontal_bias="0.134"
+            app:layout_constraintStart_toStartOf="@+id/spinner_sexo"
+            app:layout_constraintTop_toBottomOf="@+id/spinner_sexo"
+            app:layout_constraintWidth_percent="0.8">
+
+            <AutoCompleteTextView
+                android:id="@+id/filled_raza"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="none"
+                android:textColor="@color/black"></AutoCompleteTextView>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/spinner_tamano"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:hint="@string/tamano"
+            android:textColor="@color/black"
+            android:textColorHint="@color/hint"
+            app:boxBackgroundColor="@color/k_background"
+            app:boxStrokeColor="@android:color/darker_gray"
+            app:layout_constraintEnd_toEndOf="@+id/spinner_raza"
+            app:layout_constraintHorizontal_bias="0.134"
+            app:layout_constraintStart_toStartOf="@+id/spinner_raza"
+            app:layout_constraintTop_toBottomOf="@+id/spinner_raza"
+            app:layout_constraintWidth_percent="0.8">
+
+            <AutoCompleteTextView
+                android:id="@+id/filled_tamano"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="none"
+                android:textColor="@color/black"></AutoCompleteTextView>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/spinner_color"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:hint="@string/color"
+            android:textColor="@color/black"
+            android:textColorHint="@color/hint"
+            app:boxBackgroundColor="@color/k_background"
+            app:boxStrokeColor="@android:color/darker_gray"
+            app:layout_constraintEnd_toEndOf="@+id/spinner_tamano"
+            app:layout_constraintHorizontal_bias="0.134"
+            app:layout_constraintStart_toStartOf="@+id/spinner_tamano"
+            app:layout_constraintTop_toBottomOf="@+id/spinner_tamano"
+            app:layout_constraintWidth_percent="0.8">
+
+            <AutoCompleteTextView
+                android:id="@+id/filled_color"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="none"
+                android:textColor="@color/black"></AutoCompleteTextView>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/spinner_edad"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:hint="@string/edad"
+            android:textColor="@color/black"
+            android:textColorHint="@color/hint"
+            app:boxBackgroundColor="@color/k_background"
+            app:boxStrokeColor="@android:color/darker_gray"
+            app:layout_constraintEnd_toEndOf="@+id/spinner_color"
+            app:layout_constraintHorizontal_bias="0.134"
+            app:layout_constraintStart_toStartOf="@+id/spinner_color"
+            app:layout_constraintTop_toBottomOf="@+id/spinner_color"
+            app:layout_constraintWidth_percent="0.8">
+
+            <AutoCompleteTextView
+                android:id="@+id/filled_edad"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="none"
+                android:textColor="@color/black"></AutoCompleteTextView>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <EditText
+            android:id="@+id/peso"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:backgroundTint="@android:color/darker_gray"
+            android:ems="10"
+            android:hint="@string/peso"
+            android:inputType="textPersonName"
+            android:minHeight="48dp"
+            android:textColor="@color/black"
+            android:textColorHint="@color/hint"
+            app:layout_constraintEnd_toEndOf="@+id/spinner_edad"
+            app:layout_constraintHorizontal_bias="0.142"
+            app:layout_constraintStart_toStartOf="@+id/spinner_edad"
+            app:layout_constraintTop_toBottomOf="@+id/spinner_edad"
+            app:layout_constraintWidth_percent=".80"
+            tools:ignore="TextContrastCheck" />
+
+        <EditText
+            android:id="@+id/detalles_apariencia"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:backgroundTint="@android:color/darker_gray"
+            android:ems="10"
+            android:hint="@string/detalles_apariencia"
+            android:inputType="textMultiLine"
+            android:minHeight="48dp"
+            android:textColor="@color/black"
+            android:textColorHint="@color/hint"
+            app:layout_constraintEnd_toEndOf="@+id/peso"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/peso"
+            app:layout_constraintTop_toBottomOf="@+id/peso"
+            app:layout_constraintWidth_percent=".80" />
+
+        <EditText
+            android:id="@+id/detalles_salud"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:backgroundTint="@android:color/darker_gray"
+            android:ems="10"
+            android:hint="@string/detalles_salud"
+            android:inputType="textMultiLine"
+            android:minHeight="48dp"
+            android:textColor="@color/black"
+            android:textColorHint="@color/hint"
+            app:layout_constraintEnd_toEndOf="@+id/detalles_apariencia"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="@+id/detalles_apariencia"
+            app:layout_constraintTop_toBottomOf="@+id/detalles_apariencia"
+            app:layout_constraintWidth_percent=".80" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/spinner_comportamiento"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:hint="@string/comportamiento"
+            android:textColor="@color/black"
+            android:textColorHint="@color/hint"
+            app:boxBackgroundColor="@color/k_background"
+            app:boxStrokeColor="@android:color/darker_gray"
+            app:layout_constraintEnd_toEndOf="@+id/detalles_salud"
+            app:layout_constraintHorizontal_bias="0.134"
+            app:layout_constraintStart_toStartOf="@+id/detalles_salud"
+            app:layout_constraintTop_toBottomOf="@+id/detalles_salud"
+            app:layout_constraintWidth_percent="0.8">
+
+            <AutoCompleteTextView
+                android:id="@+id/filled_comportamiento"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="none"
+                android:textColor="@color/black"></AutoCompleteTextView>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="140dp"
+            android:layout_height="140dp"
+            android:layout_marginTop="16dp"
+            android:contentDescription="@string/imagen"
+            app:layout_constraintEnd_toEndOf="@+id/spinner_comportamiento"
+            app:layout_constraintStart_toStartOf="@+id/spinner_comportamiento"
+            app:layout_constraintTop_toBottomOf="@+id/spinner_comportamiento"
+            app:srcCompat="@drawable/kimbo" />
+
+        <EditText
+            android:id="@+id/contacto"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="94dp"
+            android:backgroundTint="@android:color/darker_gray"
+            android:ems="10"
+            android:hint="@string/contacto"
+            android:inputType="phone"
+            android:minHeight="48dp"
+            android:textColor="@color/black"
+            android:textColorHint="@color/hint"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/imageView2"
+            app:layout_constraintHorizontal_bias="0.485"
+            app:layout_constraintStart_toStartOf="@+id/imageView2"
+            app:layout_constraintTop_toBottomOf="@+id/imageView2"
+            app:layout_constraintWidth_percent=".80" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>
+

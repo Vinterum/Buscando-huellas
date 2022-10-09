@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "725597126512",
+    "project_id": "kairenbh-c01f4",
+    "storage_bucket": "kairenbh-c01f4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:725597126512:android:961d48b8446675dd69d9b5",
+        "android_client_info": {
+          "package_name": "com.example.buscandohuellas"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "725597126512-mr9qc7e54dmoujlav4rm94hkbmof204o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDy_oS5qeTR47T9gWKdkcL1edGovI1AqFI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "725597126512-mr9qc7e54dmoujlav4rm94hkbmof204o.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "725597126512-70uqsk8h4q7jq8nmmdsbnb9mi0aai71s.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "Buscando-Huellas"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

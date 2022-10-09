@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="nombre_mascota">Nombre de la mascota</string>
+    <string name="detalles">Detalles</string>
+    <string name="peso">Peso</string>
+</resources>

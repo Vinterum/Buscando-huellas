@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">BuscandoHuellas</string>
+    <string name="title_activity_menu">MenuActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_find">Find</string>
+    <string name="title_report">Report</string>
+    <string name="title_mypets">My pets</string>
+    <string name="nombre_mascota">Nombre de la mascota</string>
+    <string name="detalles_apariencia">Detalles de apariencia</string>
+    <string name="detalles_salud">Detalles de salud</string>
+    <string name="comportamiento">Comportamiento</string>
+    <string name="peso">Peso</string>
+    <string name="edad">Edad de la mascota</string>
+    <string name="sexo">Sexo</string>
+    <string name="raza">Raza</string>
+    <string name="tamano">Tamaño</string>
+    <string name="color">Color</string>
+    <string name="contacto">Número de teléfono</string>
+    <string name="imagen">Subir foto de perro</string>
+    <string name="reportar">Reportar perro perdido</string>
+    <string name="avistamiento">Reportar avistamiento de un perro</string>
+</resources>
