@@ -23,8 +23,11 @@
         android:label="@string/title_report"
         tools:layout="@layout/fragment_report_choose" >
         <action
-            android:id="@+id/registerPetForm"
+            android:id="@+id/to_registerPetForm"
             app:destination="@id/registerPetFragment" />
+        <action
+            android:id="@+id/to_sightingForm"
+            app:destination="@id/petSightingFragment" />
     </fragment>
 
     <fragment
@@ -37,5 +40,10 @@
         android:name="com.example.buscandohuellas.ui.report.register_pet.RegisterPetFragment"
         android:label="fragment_register_pet"
         tools:layout="@layout/fragment_register_pet" />
+    <fragment
+        android:id="@+id/petSightingFragment"
+        android:name="com.example.buscandohuellas.ui.report.register_pet.PetSightingFragment"
+        android:label="PetSightingFragment"
+        tools:layout="@layout/fragment_pet_sighting"/>
 
 </navigation>

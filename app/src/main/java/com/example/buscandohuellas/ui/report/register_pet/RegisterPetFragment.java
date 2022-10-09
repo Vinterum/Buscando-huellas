@@ -1,18 +1,16 @@
 package com.example.buscandohuellas.ui.report.register_pet;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
-import android.widget.Toast;
 
 import com.example.buscandohuellas.R;
 import com.example.buscandohuellas.databinding.FragmentRegisterPetBinding;
@@ -34,12 +32,8 @@ public class RegisterPetFragment extends Fragment {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), R.layout.drop_down_item, type);
         AutoCompleteTextView autoCompleteTextView = binding.filledRaza;
         autoCompleteTextView.setAdapter(adapter);
-        autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(getActivity(), autoCompleteTextView.getText().toString(),Toast.LENGTH_SHORT).show();
-            }
-        });
+        autoCompleteTextView.setOnItemClickListener((adapterView, view, i, l) ->
+                Toast.makeText(getActivity(), autoCompleteTextView.getText().toString(),Toast.LENGTH_SHORT).show());
         return root;
     }
 

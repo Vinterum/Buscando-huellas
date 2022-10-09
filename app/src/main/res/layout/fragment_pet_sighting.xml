@@ -11,40 +11,26 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:context=".ui.report.ReportFragment">
+        tools:context=".ui.report.register_pet.PetSightingFragment">
 
-        <EditText
-            android:id="@+id/nombreMascota"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:backgroundTint="@android:color/darker_gray"
-            android:ems="10"
-            android:hint="@string/nombre_mascota"
-            android:inputType="textPersonName"
-            android:minHeight="48dp"
-            android:textColor="@color/black"
-            android:textColorHint="@color/hint"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintWidth_percent=".80" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/spinner_sexo"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="24dp"
             android:hint="@string/sexo"
             android:textColor="@color/black"
             android:textColorHint="@color/hint"
             app:boxBackgroundColor="@color/k_background"
             app:boxStrokeColor="@android:color/darker_gray"
-            app:layout_constraintEnd_toEndOf="@+id/nombreMascota"
-            app:layout_constraintHorizontal_bias="0.134"
-            app:layout_constraintStart_toStartOf="@+id/nombreMascota"
-            app:layout_constraintTop_toBottomOf="@+id/nombreMascota"
+            app:layout_constraintBottom_toTopOf="@+id/spinner_raza"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.5"
             app:layout_constraintWidth_percent="0.8">
 
             <AutoCompleteTextView
@@ -66,10 +52,12 @@
             android:textColorHint="@color/hint"
             app:boxBackgroundColor="@color/k_background"
             app:boxStrokeColor="@android:color/darker_gray"
-            app:layout_constraintEnd_toEndOf="@+id/spinner_sexo"
-            app:layout_constraintHorizontal_bias="0.134"
-            app:layout_constraintStart_toStartOf="@+id/spinner_sexo"
+            app:layout_constraintBottom_toTopOf="@+id/spinner_tamano"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/spinner_sexo"
+            app:layout_constraintVertical_bias="0.5"
             app:layout_constraintWidth_percent="0.8">
 
             <AutoCompleteTextView
@@ -91,10 +79,12 @@
             android:textColorHint="@color/hint"
             app:boxBackgroundColor="@color/k_background"
             app:boxStrokeColor="@android:color/darker_gray"
-            app:layout_constraintEnd_toEndOf="@+id/spinner_raza"
-            app:layout_constraintHorizontal_bias="0.134"
-            app:layout_constraintStart_toStartOf="@+id/spinner_raza"
+            app:layout_constraintBottom_toTopOf="@+id/spinner_color"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/spinner_raza"
+            app:layout_constraintVertical_bias="0.5"
             app:layout_constraintWidth_percent="0.8">
 
             <AutoCompleteTextView
@@ -116,10 +106,12 @@
             android:textColorHint="@color/hint"
             app:boxBackgroundColor="@color/k_background"
             app:boxStrokeColor="@android:color/darker_gray"
-            app:layout_constraintEnd_toEndOf="@+id/spinner_tamano"
-            app:layout_constraintHorizontal_bias="0.134"
-            app:layout_constraintStart_toStartOf="@+id/spinner_tamano"
+            app:layout_constraintBottom_toTopOf="@+id/spinner_edad"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/spinner_tamano"
+            app:layout_constraintVertical_bias="0.5"
             app:layout_constraintWidth_percent="0.8">
 
             <AutoCompleteTextView
@@ -141,10 +133,12 @@
             android:textColorHint="@color/hint"
             app:boxBackgroundColor="@color/k_background"
             app:boxStrokeColor="@android:color/darker_gray"
-            app:layout_constraintEnd_toEndOf="@+id/spinner_color"
-            app:layout_constraintHorizontal_bias="0.134"
-            app:layout_constraintStart_toStartOf="@+id/spinner_color"
+            app:layout_constraintBottom_toTopOf="@+id/detalles_apariencia"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/spinner_color"
+            app:layout_constraintVertical_bias="0.5"
             app:layout_constraintWidth_percent="0.8">
 
             <AutoCompleteTextView
@@ -155,24 +149,6 @@
                 android:textColor="@color/black" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <EditText
-            android:id="@+id/peso"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:backgroundTint="@android:color/darker_gray"
-            android:ems="10"
-            android:hint="@string/peso"
-            android:inputType="textPersonName"
-            android:minHeight="48dp"
-            android:textColor="@color/black"
-            android:textColorHint="@color/hint"
-            app:layout_constraintEnd_toEndOf="@+id/spinner_edad"
-            app:layout_constraintHorizontal_bias="0.142"
-            app:layout_constraintStart_toStartOf="@+id/spinner_edad"
-            app:layout_constraintTop_toBottomOf="@+id/spinner_edad"
-            app:layout_constraintWidth_percent=".80"
-            tools:ignore="TextContrastCheck" />
 
         <EditText
             android:id="@+id/detalles_apariencia"
@@ -186,28 +162,12 @@
             android:minHeight="48dp"
             android:textColor="@color/black"
             android:textColorHint="@color/hint"
-            app:layout_constraintEnd_toEndOf="@+id/peso"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/peso"
-            app:layout_constraintTop_toBottomOf="@+id/peso"
-            app:layout_constraintWidth_percent=".80" />
-
-        <EditText
-            android:id="@+id/detalles_salud"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:backgroundTint="@android:color/darker_gray"
-            android:ems="10"
-            android:hint="@string/detalles_salud"
-            android:inputType="textMultiLine"
-            android:minHeight="48dp"
-            android:textColor="@color/black"
-            android:textColorHint="@color/hint"
-            app:layout_constraintEnd_toEndOf="@+id/detalles_apariencia"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="@+id/detalles_apariencia"
-            app:layout_constraintTop_toBottomOf="@+id/detalles_apariencia"
+            app:layout_constraintBottom_toTopOf="@+id/spinner_comportamiento"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/spinner_edad"
+            app:layout_constraintVertical_bias="0.5"
             app:layout_constraintWidth_percent=".80" />
 
         <com.google.android.material.textfield.TextInputLayout
@@ -221,10 +181,12 @@
             android:textColorHint="@color/hint"
             app:boxBackgroundColor="@color/k_background"
             app:boxStrokeColor="@android:color/darker_gray"
-            app:layout_constraintEnd_toEndOf="@+id/detalles_salud"
-            app:layout_constraintHorizontal_bias="0.134"
-            app:layout_constraintStart_toStartOf="@+id/detalles_salud"
-            app:layout_constraintTop_toBottomOf="@+id/detalles_salud"
+            app:layout_constraintBottom_toTopOf="@+id/dogImage"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/detalles_apariencia"
+            app:layout_constraintVertical_bias="0.5"
             app:layout_constraintWidth_percent="0.8">
 
             <AutoCompleteTextView
@@ -241,9 +203,12 @@
             android:layout_height="140dp"
             android:layout_marginTop="16dp"
             android:contentDescription="@string/imagen"
-            app:layout_constraintEnd_toEndOf="@+id/spinner_comportamiento"
-            app:layout_constraintStart_toStartOf="@+id/spinner_comportamiento"
+            app:layout_constraintBottom_toTopOf="@+id/contacto"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/spinner_comportamiento"
+            app:layout_constraintVertical_bias="0.5"
             app:srcCompat="@drawable/kimbo" />
 
         <EditText
@@ -260,12 +225,12 @@
             android:textColor="@color/black"
             android:textColorHint="@color/hint"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/dogImage"
-            app:layout_constraintHorizontal_bias="0.485"
-            app:layout_constraintStart_toStartOf="@+id/dogImage"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/dogImage"
+            app:layout_constraintVertical_bias="0.5"
             app:layout_constraintWidth_percent=".80" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>
-
