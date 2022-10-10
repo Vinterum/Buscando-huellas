@@ -19,7 +19,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:backgroundTint="@android:color/darker_gray"
-            android:ems="10"
             android:hint="@string/nombre_mascota"
             android:inputType="textPersonName"
             android:minHeight="48dp"
@@ -28,6 +27,24 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_percent=".80" />
+
+        <TextView
+            android:id="@+id/ss_raza"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:minHeight="48dp"
+            android:background="@android:drawable/editbox_background"
+            android:gravity="center_vertical"
+            android:hint="@string/raza"
+            android:padding="12dp"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            app:drawableEndCompat="@drawable/ic_expand"
+            app:layout_constraintEnd_toEndOf="@id/nombreMascota"
+            app:layout_constraintStart_toStartOf="@id/nombreMascota"
+            app:layout_constraintTop_toBottomOf="@id/nombreMascota"
             app:layout_constraintWidth_percent=".80" />
 
         <com.google.android.material.textfield.TextInputLayout
@@ -41,39 +58,14 @@
             android:textColorHint="@color/hint"
             app:boxBackgroundColor="@color/k_background"
             app:boxStrokeColor="@android:color/darker_gray"
-            app:layout_constraintEnd_toEndOf="@+id/nombreMascota"
+            app:layout_constraintEnd_toEndOf="@+id/ss_raza"
             app:layout_constraintHorizontal_bias="0.134"
-            app:layout_constraintStart_toStartOf="@+id/nombreMascota"
-            app:layout_constraintTop_toBottomOf="@+id/nombreMascota"
+            app:layout_constraintStart_toStartOf="@+id/ss_raza"
+            app:layout_constraintTop_toBottomOf="@+id/ss_raza"
             app:layout_constraintWidth_percent="0.8">
 
             <AutoCompleteTextView
                 android:id="@+id/filled_sexo"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="none"
-                android:textColor="@color/black" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/spinner_raza"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:hint="@string/raza"
-            android:textColor="@color/black"
-            android:textColorHint="@color/hint"
-            app:boxBackgroundColor="@color/k_background"
-            app:boxStrokeColor="@android:color/darker_gray"
-            app:layout_constraintEnd_toEndOf="@+id/spinner_sexo"
-            app:layout_constraintHorizontal_bias="0.134"
-            app:layout_constraintStart_toStartOf="@+id/spinner_sexo"
-            app:layout_constraintTop_toBottomOf="@+id/spinner_sexo"
-            app:layout_constraintWidth_percent="0.8">
-
-            <AutoCompleteTextView
-                android:id="@+id/filled_raza"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="none"
@@ -91,10 +83,10 @@
             android:textColorHint="@color/hint"
             app:boxBackgroundColor="@color/k_background"
             app:boxStrokeColor="@android:color/darker_gray"
-            app:layout_constraintEnd_toEndOf="@+id/spinner_raza"
+            app:layout_constraintEnd_toEndOf="@+id/spinner_sexo"
             app:layout_constraintHorizontal_bias="0.134"
-            app:layout_constraintStart_toStartOf="@+id/spinner_raza"
-            app:layout_constraintTop_toBottomOf="@+id/spinner_raza"
+            app:layout_constraintStart_toStartOf="@+id/spinner_sexo"
+            app:layout_constraintTop_toBottomOf="@+id/spinner_sexo"
             app:layout_constraintWidth_percent="0.8">
 
             <AutoCompleteTextView
