@@ -14,6 +14,7 @@
         tools:context=".ui.report.ReportFragment">
 
         <EditText
+            android:maxLength="25"
             android:id="@+id/nombreMascota"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -148,40 +149,21 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <EditText
-            android:id="@+id/peso"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:backgroundTint="@android:color/darker_gray"
-            android:ems="10"
-            android:hint="@string/peso"
-            android:inputType="textPersonName"
-            android:minHeight="48dp"
-            android:textColor="@color/black"
-            android:textColorHint="@color/hint"
-            app:layout_constraintEnd_toEndOf="@+id/spinner_edad"
-            app:layout_constraintHorizontal_bias="0.142"
-            app:layout_constraintStart_toStartOf="@+id/spinner_edad"
-            app:layout_constraintTop_toBottomOf="@+id/spinner_edad"
-            app:layout_constraintWidth_percent=".80"
-            tools:ignore="TextContrastCheck" />
-
-        <EditText
             android:id="@+id/detalles_apariencia"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:backgroundTint="@android:color/darker_gray"
-            android:ems="10"
             android:hint="@string/detalles_apariencia"
             android:inputType="textMultiLine"
             android:minHeight="48dp"
             android:textColor="@color/black"
             android:textColorHint="@color/hint"
-            app:layout_constraintEnd_toEndOf="@+id/peso"
+            android:maxLength="200"
+            app:layout_constraintEnd_toEndOf="@+id/spinner_edad"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/peso"
-            app:layout_constraintTop_toBottomOf="@+id/peso"
+            app:layout_constraintStart_toStartOf="@+id/spinner_edad"
+            app:layout_constraintTop_toBottomOf="@+id/spinner_edad"
             app:layout_constraintWidth_percent=".80" />
 
         <EditText
@@ -190,12 +172,12 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:backgroundTint="@android:color/darker_gray"
-            android:ems="10"
             android:hint="@string/detalles_salud"
             android:inputType="textMultiLine"
             android:minHeight="48dp"
             android:textColor="@color/black"
             android:textColorHint="@color/hint"
+            android:maxLength="200"
             app:layout_constraintEnd_toEndOf="@+id/detalles_apariencia"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="@+id/detalles_apariencia"
@@ -245,12 +227,12 @@
             android:layout_marginTop="16dp"
             android:layout_marginBottom="94dp"
             android:backgroundTint="@android:color/darker_gray"
-            android:ems="10"
             android:hint="@string/contacto"
             android:inputType="phone"
             android:minHeight="48dp"
             android:textColor="@color/black"
             android:textColorHint="@color/hint"
+            android:maxLength="200"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/dogImage"
             app:layout_constraintHorizontal_bias="0.485"

@@ -17,6 +17,7 @@
         <item name="android:textColorHint">@color/hint</item>
         <item name="colorControlNormal">@android:color/darker_gray</item>
         <item name="android:colorControlHighlight">@color/k_blue</item>
+        <item name="colorSurface">@color/k_background</item>
     </style>
 
     <style name="SplashTheme" parent="Theme.BuscandoHuellas">
