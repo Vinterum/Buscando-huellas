@@ -4,6 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
+enum Provider{
+    BASIC
+}
+
 public class HomeActivity extends AppCompatActivity {
 
     @Override
