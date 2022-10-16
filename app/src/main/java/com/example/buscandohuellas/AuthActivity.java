@@ -2,19 +2,14 @@ package com.example.buscandohuellas;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.buscandohuellas.databinding.ActivityAuthBinding;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
-import java.security.Provider;
+import java.util.Objects;
 
 public class AuthActivity extends AppCompatActivity {
 
@@ -22,6 +17,7 @@ public class AuthActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTheme(R.style.Theme_BuscandoHuellas);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_auth);
 
@@ -35,22 +31,32 @@ public class AuthActivity extends AppCompatActivity {
     private void setup() {
         String title = "Autenticación";
         binding.SignUpButton.setOnClickListener(view -> {
-            if (binding.LoginCorreo.getEditText().getText().toString().length() > 0
-            && binding.LoginContrasena.getEditText().getText().toString().length() > 0) {
+            if (Objects.requireNonNull(binding.LoginCorreo.getEditText()).getText().toString().length() > 0
+            && Objects.requireNonNull(binding.LoginContrasena.getEditText()).getText().toString().length() > 0) {
                 FirebaseAuth.getInstance().createUserWithEmailAndPassword(binding.LoginCorreo.getEditText().getText().toString(),
-                binding.LoginContrasena.getEditText().getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-
-                        } else {
-                            showAlert();
-                        }
+                binding.LoginContrasena.getEditText().getText().toString()).addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        showHome(Objects.requireNonNull(task.getResult().getUser()).getEmail(), ProviderType.BASIC);
+                    } else {
+                        showAlert();
                     }
                 });
             }
         });
 
+        binding.LogInButton.setOnClickListener(view -> {
+            if (Objects.requireNonNull(binding.LoginCorreo.getEditText()).getText().toString().length() > 0
+                    && Objects.requireNonNull(binding.LoginContrasena.getEditText()).getText().toString().length() > 0) {
+                FirebaseAuth.getInstance().signInWithEmailAndPassword(binding.LoginCorreo.getEditText().getText().toString(),
+                        binding.LoginContrasena.getEditText().getText().toString()).addOnCompleteListener(task -> {
+                            if (task.isSuccessful()) {
+                                showHome(Objects.requireNonNull(task.getResult().getUser()).getEmail(), ProviderType.BASIC);
+                            } else {
+                                showAlert();
+                            }
+                        });
+            }
+        });
     }
 
     private void showAlert() {
@@ -61,12 +67,10 @@ public class AuthActivity extends AppCompatActivity {
         AlertDialog dialog = builder.create();
         dialog.show();
     }
-    private void showHome(String email, Provider provider) {
-
-        Object HomeActivity = null;
-        Intent homeIntent = new Intent(this, HomeActivity.getClass());
+    private void showHome(String email, ProviderType provider) {
+        Intent homeIntent = new Intent(this, MenuActivity.class);
         homeIntent.putExtra("email", email);
-        homeIntent.putExtra("provider", provider.getName());
+        homeIntent.putExtra("provider", ProviderType.BASIC.name());
         startActivity(homeIntent);
     }
 }

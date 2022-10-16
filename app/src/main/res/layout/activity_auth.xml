@@ -4,11 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/k_background"
     tools:context=".AuthActivity">
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/Login_correo"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        app:boxStrokeColor="@color/black"
+        android:textColorHint="@color/gray"
+        app:helperTextTextColor="@color/gray"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="34dp"
@@ -20,11 +24,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintWidth_percent="0.8"
-        app:startIconDrawable="@drawable/ic_email">
+        app:startIconDrawable="@drawable/ic_email"
+        app:startIconTint="@color/black">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"
+            android:singleLine="true"
+            android:textColor="@color/black"
+            android:textColorHint="@color/gray"
             tools:ignore="TouchTargetSizeCheck" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -32,21 +41,30 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/Login_contrasena"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        app:boxStrokeColor="@color/black"
+        android:textColorHint="@color/gray"
+        app:helperTextTextColor="@color/gray"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="34dp"
         android:hint="@string/password"
         app:endIconMode="password_toggle"
+        app:endIconTint="@color/black"
         app:helperText="@string/required"
         app:layout_constraintEnd_toEndOf="@id/Login_correo"
         app:layout_constraintStart_toStartOf="@id/Login_correo"
         app:layout_constraintTop_toBottomOf="@+id/Login_correo"
         app:layout_constraintWidth_percent="0.8"
-        app:startIconDrawable="@drawable/ic_lock">
+        app:startIconDrawable="@drawable/ic_lock"
+        app:startIconTint="@color/black">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:singleLine="true"
+            android:textColor="@color/black"
+            android:textColorHint="@color/gray" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.button.MaterialButton

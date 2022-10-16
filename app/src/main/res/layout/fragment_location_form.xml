@@ -1,14 +1,119 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.report.register_pet.LocationFormFragment">
+    android:textAlignment="center"
+    tools:context=".ui.report.forms.LocationFormFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:id="@+id/titulo_ubicacion"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:gravity="center_horizontal"
+        android:text="@string/titulo_ubicacion"
+        android:textColor="@color/black"
+        android:textSize="21sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_percent=".85" />
 
-</FrameLayout>
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/busca_lugar"
+        style="@style/Widget.MaterialComponents.FloatingActionButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/edittext_border"
+        android:drawableLeft="@drawable/ic_map"
+        android:minHeight="48dp"
+        android:text="@string/lugar_avistamiento"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:backgroundTint="@color/k_blue"
+        app:layout_constraintEnd_toEndOf="@+id/titulo_ubicacion"
+        app:layout_constraintStart_toStartOf="@+id/titulo_ubicacion"
+        app:layout_constraintTop_toBottomOf="@+id/titulo_ubicacion"
+        app:layout_constraintWidth_percent=".80" />
+
+    <TextView
+        android:id="@+id/lugar_elegido"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:minHeight="48dp"
+        android:textColor="@color/dark_gray"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@+id/busca_lugar"
+        app:layout_constraintStart_toStartOf="@+id/busca_lugar"
+        app:layout_constraintTop_toBottomOf="@+id/busca_lugar"
+        app:layout_constraintWidth_percent=".90" />
+
+    <FrameLayout
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintWidth_percent=".80"
+        app:layout_constraintHeight_percent=".40"
+        app:layout_constraintEnd_toEndOf="@+id/fecha_avistamiento"
+        app:layout_constraintStart_toStartOf="@+id/fecha_avistamiento"
+        app:layout_constraintTop_toBottomOf="@+id/fecha_avistamiento" />
+
+    <EditText
+        android:id="@+id/detalles_ubicacion"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:backgroundTint="@android:color/darker_gray"
+        android:hint="@string/detalles_ubicacion"
+        android:inputType="textMultiLine"
+        android:maxLength="200"
+        android:minHeight="48dp"
+        android:textColor="@color/black"
+        android:textColorHint="@color/hint"
+        app:layout_constraintEnd_toEndOf="@+id/busca_lugar"
+        app:layout_constraintStart_toStartOf="@+id/busca_lugar"
+        app:layout_constraintTop_toBottomOf="@+id/lugar_elegido"
+        app:layout_constraintWidth_percent=".80" />
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/fecha_avistamiento"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="34dp"
+        android:clickable="false"
+        android:focusable="false"
+        android:hint="@string/fecha_avistamiento"
+        android:textColorHint="@color/gray"
+        app:boxStrokeColor="@color/black"
+        app:helperTextTextColor="@color/gray"
+        app:layout_constraintEnd_toEndOf="@id/detalles_ubicacion"
+        app:layout_constraintStart_toStartOf="@id/detalles_ubicacion"
+        app:layout_constraintTop_toBottomOf="@id/detalles_ubicacion"
+        app:layout_constraintWidth_percent="0.8"
+        app:startIconDrawable="@drawable/ic_calendar"
+        app:startIconTint="@color/black">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edita_fecha"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="false"
+            android:focusable="false"
+            android:inputType="textEmailAddress"
+            android:singleLine="true"
+            android:textColor="@color/black"
+            android:textColorHint="@color/gray"
+            tools:ignore="TouchTargetSizeCheck" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

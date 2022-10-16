@@ -60,7 +60,6 @@
             app:boxBackgroundColor="@color/k_background"
             app:boxStrokeColor="@android:color/darker_gray"
             app:layout_constraintEnd_toEndOf="@+id/ss_raza"
-            app:layout_constraintHorizontal_bias="0.134"
             app:layout_constraintStart_toStartOf="@+id/ss_raza"
             app:layout_constraintTop_toBottomOf="@+id/ss_raza"
             app:layout_constraintWidth_percent="0.8">
@@ -225,20 +224,31 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:layout_marginBottom="94dp"
             android:backgroundTint="@android:color/darker_gray"
             android:hint="@string/contacto"
             android:inputType="phone"
+            android:maxLength="200"
             android:minHeight="48dp"
             android:textColor="@color/black"
             android:textColorHint="@color/hint"
-            android:maxLength="200"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/dogImage"
             app:layout_constraintHorizontal_bias="0.485"
             app:layout_constraintStart_toStartOf="@+id/dogImage"
             app:layout_constraintTop_toBottomOf="@+id/dogImage"
             app:layout_constraintWidth_percent=".80" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/RegistraMascotaBoton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="80dp"
+            android:backgroundTint="@color/k_darkblue"
+            android:text="@string/register"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/contacto"
+            app:layout_constraintStart_toStartOf="@+id/contacto"
+            app:layout_constraintTop_toBottomOf="@+id/contacto" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

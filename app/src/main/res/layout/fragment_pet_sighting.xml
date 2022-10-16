@@ -11,7 +11,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:context=".ui.report.register_pet.PetSightingFragment">
+        tools:context=".ui.report.forms.PetSightingFragment">
 
         <TextView
             android:id="@+id/ss_raza"

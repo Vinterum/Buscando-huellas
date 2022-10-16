@@ -1,9 +1,12 @@
-package com.example.buscandohuellas.ui.report.register_pet;
+package com.example.buscandohuellas.ui.report.forms;
 
 import android.app.Dialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+
+import androidx.fragment.app.Fragment;
+
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -16,15 +19,11 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
-
 import com.example.buscandohuellas.R;
+import com.example.buscandohuellas.databinding.FragmentPetSightingBinding;
 import com.example.buscandohuellas.databinding.FragmentRegisterPetBinding;
-import com.example.buscandohuellas.ui.report.ReportViewModel;
 
-public class RegisterPetFragment extends Fragment {
+public class PetSightingFragment extends Fragment {
 
     TextView textView;
     Dialog dialog;
@@ -33,14 +32,13 @@ public class RegisterPetFragment extends Fragment {
     AutoCompleteTextView spinnerColor;
     AutoCompleteTextView spinnerEdad;
     AutoCompleteTextView spinnerComportamiento;
-    private FragmentRegisterPetBinding binding;
+    private FragmentPetSightingBinding binding;
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-        ReportViewModel notificationsViewModel =
-                new ViewModelProvider(this).get(ReportViewModel.class);
-
-        binding = FragmentRegisterPetBinding.inflate(inflater, container, false);
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        binding = FragmentPetSightingBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
         //initialize searchable spinner for raza

@@ -1,4 +1,6 @@
 <resources>
+    <string name="gmp_key">AIzaSyB1aqlLitAyBI5Ehr6eDbPTTHQOxvzvWrY</string>
+    <string name="maps_key">AIzaSyB1aqlLitAyBI5Ehr6eDbPTTHQOxvzvWrY</string>
     <string name="required">*Requerido</string>
     <string name="email">Correo</string>
     <string name="register">Registrar</string>
@@ -27,6 +29,10 @@
     <string name="reportar">Reportar perro perdido</string>
     <string name="avistamiento">Reportar avistamiento de un perro</string>
     <string name="pista_busqueda">Buscar…</string>
+    <string name="titulo_ubicacion">¿Dónde y cuándo se vió por ultima vez?</string>
+    <string name="lugar_avistamiento">Selecciona el lugar</string>
+    <string name="fecha_avistamiento">Última fecha de avistamiento</string>
+    <string name="detalles_ubicacion">Detalles de ubicación</string>
     <string-array name="lista_sexo">
         <item>Macho</item>
         <item>Hembra</item>
