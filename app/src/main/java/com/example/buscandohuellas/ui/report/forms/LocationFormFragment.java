@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
@@ -18,6 +19,8 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavDirections;
+import androidx.navigation.Navigation;
 
 import com.example.buscandohuellas.R;
 import com.example.buscandohuellas.databinding.FragmentLocationFormBinding;
@@ -27,21 +30,34 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.model.Place;
 import com.google.android.libraries.places.api.model.RectangularBounds;
-import com.google.android.libraries.places.api.model.TypeFilter;
 import com.google.android.libraries.places.widget.Autocomplete;
 import com.google.android.libraries.places.widget.AutocompleteActivity;
 import com.google.android.libraries.places.widget.model.AutocompleteActivityMode;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.Timestamp;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class LocationFormFragment extends Fragment implements OnMapReadyCallback {
+
+    //Datos
+    String lugar;
+    String detalles_ubi;
+    String fecha;
+    double latitud;
+    double longitud;
 
     //binding
     private FragmentLocationFormBinding binding;
@@ -55,14 +71,22 @@ public class LocationFormFragment extends Fragment implements OnMapReadyCallback
 
     //map view variables
     private GoogleMap mMap;
+    private Marker mMarker = null;
     private LatLng mLatLng;
+
+    public static LocationFormFragment newInstance() {
+        LocationFormFragment fragment = new LocationFormFragment();
+        return fragment;
+    }
+
+    private final FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
 
-
+    @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -71,7 +95,9 @@ public class LocationFormFragment extends Fragment implements OnMapReadyCallback
         View root = binding.getRoot();
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        setupMap();
+        SupportMapFragment mapFragment = (SupportMapFragment) this.getChildFragmentManager()
+                .findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
         
         setupPlaces();
 
@@ -79,6 +105,17 @@ public class LocationFormFragment extends Fragment implements OnMapReadyCallback
         editDate = binding.editaFecha;
         editDate.setText(getTodaysDate());
         editDate.setOnClickListener(view -> datePickerDialog.show());
+
+        binding.registraUbicacionBoton.setOnClickListener(view -> {
+            if (binding.detallesUbicacion.getText().toString().length() > 0
+                    && binding.lugarElegido.getText().toString().length() > 0) {
+                addPlaceToDB();
+                NavDirections navDirections = LocationFormFragmentDirections.locationToFind();
+                Navigation.findNavController(view).navigate(navDirections);
+            } else {
+                Toast.makeText(getActivity(), "Llena todos los campos obligatorios", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         return root;
     }
@@ -92,17 +129,11 @@ public class LocationFormFragment extends Fragment implements OnMapReadyCallback
         });
     }
 
-    private void setupMap() {
-        SupportMapFragment mapFragment = (SupportMapFragment) getActivity()
-                .getSupportFragmentManager().findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
-    }
-
     //Map search autocomplete helper functions
     private void startAutocomplete() {
         // Set the fields to specify which types of place data to
         // return after the user has made a selection.
-        List<Place.Field> fields = Arrays.asList(Place.Field.NAME);
+        List<Place.Field> fields = Arrays.asList(Place.Field.NAME, Place.Field.LAT_LNG);
         // Define Puebla's rectangular bound
         RectangularBounds bounds = RectangularBounds.newInstance(
                 new LatLng(17.8609,-99.0705),
@@ -124,6 +155,10 @@ public class LocationFormFragment extends Fragment implements OnMapReadyCallback
                         Place place = Autocomplete.getPlaceFromIntent(data);
                         Log.i(TAG, "Place: " + place.getName() + ", " + place.getId());
                         binding.lugarElegido.setText(place.getName());
+                        mLatLng = place.getLatLng();
+                        latitud = mLatLng.latitude;
+                        longitud = mLatLng.longitude;
+                        setMarker(mLatLng);
                     } else if (result.getResultCode() == AutocompleteActivity.RESULT_ERROR) {
                         // TODO: Handle the error.
                         Status status = Autocomplete.getStatusFromIntent(data);
@@ -140,15 +175,24 @@ public class LocationFormFragment extends Fragment implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-
+        mMap.setMinZoomPreference(15f);
+        mMap.setMaxZoomPreference(20f);
         // Add a marker in Sydney and move the camera
         LatLng puebla = new LatLng(19.041135850693273, -98.20591993210466);
         mMap.moveCamera(CameraUpdateFactory.newLatLng(puebla));
     }
 
-    public void addMarker(LatLng latLng, String title){
+    public Marker addMarker(LatLng latLng, String title){
         MarkerOptions markerOptions = new MarkerOptions().position(latLng).title(title);
-        mMap.addMarker(markerOptions);
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+        return mMap.addMarker(markerOptions);
+    }
+
+    private void setMarker(LatLng latLng){
+        if(mMarker != null){
+            mMarker.remove();
+        }
+        mMarker = addMarker(latLng, getString(R.string.markerText));
     }
 
     //Date picker helper functions
@@ -183,5 +227,33 @@ public class LocationFormFragment extends Fragment implements OnMapReadyCallback
         month = month + 1;
         int day = cal.get(Calendar.DAY_OF_MONTH);
         return makeDateString(day, month, year);
+    }
+
+    private void addPlaceToDB() {
+        lugar = binding.lugarElegido.getText().toString();
+        detalles_ubi = binding.detallesUbicacion.getText().toString();
+        fecha = binding.editaFecha.getText().toString();
+        Map<String, Object> place = new HashMap<>();
+        place.put("lugar", lugar);
+        place.put("detalles_ubi", detalles_ubi);
+        place.put("fecha", fecha);
+        place.put("latitud", latitud);
+        place.put("longitud", longitud);
+        place.put("timestamp", Timestamp.now());
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            String uid = user.getUid();
+            db.collection("Usuarios").document(uid).collection("DatosExtravio").add(place)
+                    .addOnSuccessListener(unused -> Log.d(TAG, "DocumentSnapshot added"))
+                    .addOnFailureListener(e -> Log.w(TAG, "Error adding document", e));
+        }
+
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
     }
 }

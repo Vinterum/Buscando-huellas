@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="350dp">
+
+
+    <ImageView
+        android:id="@+id/dog_pic"
+        android:layout_width="0dp"
+        android:layout_height="140dp"
+        android:layout_marginTop="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_percent="0.5"
+        app:srcCompat="@drawable/dog_silhouette" />
+
+    <TextView
+        android:id="@+id/ubicacionPerro"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="14dp"
+        android:text="Puebla"
+        android:textColor="#000000"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/contactoPerro"
+        android:layout_width="0dp"
+        app:layout_constraintWidth_percent="0.3"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="TextView"
+        android:textColor="@color/black"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="@+id/pesoPerro"
+        app:layout_constraintStart_toStartOf="@+id/pesoPerro"
+        app:layout_constraintTop_toBottomOf="@+id/pesoPerro" />
+
+    <TextView
+        android:id="@+id/nombrePerro"
+        android:layout_width="0dp"
+        app:layout_constraintWidth_percent="0.3"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:text="TextView"
+        android:textColor="@color/black"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dog_pic" />
+
+    <TextView
+        android:id="@+id/razaPerro"
+        android:layout_width="0dp"
+        app:layout_constraintWidth_percent="0.3"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:text="TextView"
+        android:textColor="@color/black"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toStartOf="@+id/sexoPerro"
+        app:layout_constraintStart_toEndOf="@+id/nombrePerro"
+        app:layout_constraintTop_toBottomOf="@+id/dog_pic" />
+
+    <TextView
+        android:id="@+id/sexoPerro"
+        android:layout_width="0dp"
+        app:layout_constraintWidth_percent="0.3"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:text="TextView"
+        android:textColor="@color/black"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dog_pic" />
+
+    <TextView
+        android:id="@+id/detalleSaludPerro"
+        android:layout_width="0dp"
+        app:layout_constraintWidth_percent="0.3"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="TextView"
+        android:textColor="@color/black"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="@+id/colorPerro"
+        app:layout_constraintTop_toBottomOf="@+id/colorPerro" />
+
+    <TextView
+        android:id="@+id/pesoPerro"
+        android:layout_width="0dp"
+        app:layout_constraintWidth_percent="0.3"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="TextView"
+        android:textColor="@color/black"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="@+id/razaPerro"
+        app:layout_constraintStart_toStartOf="@+id/razaPerro"
+        app:layout_constraintTop_toBottomOf="@+id/razaPerro" />
+
+    <TextView
+        android:id="@+id/colorPerro"
+        android:layout_width="0dp"
+        app:layout_constraintWidth_percent="0.3"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="TextView"
+        android:textColor="@color/black"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="@+id/sexoPerro"
+        app:layout_constraintTop_toBottomOf="@+id/sexoPerro" />
+
+    <TextView
+        android:id="@+id/detalleApPerro"
+        android:layout_width="0dp"
+        app:layout_constraintWidth_percent="0.3"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="TextView"
+        android:textColor="@color/black"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="@+id/edadPerro"
+        app:layout_constraintStart_toStartOf="@+id/edadPerro"
+        app:layout_constraintTop_toBottomOf="@+id/edadPerro"
+        />
+
+    <TextView
+        android:id="@+id/edadPerro"
+        android:layout_width="0dp"
+        app:layout_constraintWidth_percent="0.3"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="TextView"
+        android:textColor="@color/black"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="@+id/nombrePerro"
+        app:layout_constraintTop_toBottomOf="@+id/nombrePerro" />
+
+    <TextView
+        android:id="@+id/comportamientoPerro"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:layout_marginEnd="10dp"
+        android:text="TextView"
+        android:textColor="@color/black"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

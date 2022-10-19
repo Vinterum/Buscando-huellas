@@ -186,7 +186,7 @@
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="@+id/spinner_comportamiento"
             app:layout_constraintTop_toBottomOf="@+id/spinner_comportamiento"
-            app:srcCompat="@drawable/kimbo" />
+            app:srcCompat="@drawable/dog_silhouette" />
 
         <EditText
             android:id="@+id/contacto"

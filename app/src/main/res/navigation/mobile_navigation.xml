@@ -53,6 +53,10 @@
         android:id="@+id/locationFormFragment"
         android:name="com.example.buscandohuellas.ui.report.forms.LocationFormFragment"
         android:label="fragment_location_form"
-        tools:layout="@layout/fragment_location_form" />
+        tools:layout="@layout/fragment_location_form" >
+        <action
+            android:id="@+id/location_to_find"
+            app:destination="@id/navigation_find" />
+    </fragment>
 
 </navigation>

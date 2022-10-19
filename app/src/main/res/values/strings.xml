@@ -24,7 +24,7 @@
     <string name="raza">Raza</string>
     <string name="tamano">Tamaño</string>
     <string name="color">Color</string>
-    <string name="contacto">Número de teléfono</string>
+    <string name="contacto">Contacto</string>
     <string name="imagen">Subir foto de perro</string>
     <string name="reportar">Reportar perro perdido</string>
     <string name="avistamiento">Reportar avistamiento de un perro</string>
@@ -388,4 +388,11 @@
     </string-array>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="markerText">Ubicación elegida</string>
+    <string name="publicar">Publicar</string>
+    <string name="permiso_denegado">Permiso denegado</string>
+    <string name="no_preguntar">No preguntar de nuevo</string>
+    <string name="cancelar">Cancelar</string>
+    <string name="permitir">Ok</string>
+    <string name="mensaje_permitir">Este permiso se necesita para elegir una foto</string>
 </resources>
