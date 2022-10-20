@@ -2,7 +2,12 @@ package com.example.buscandohuellas;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputFilter;
+import android.text.Spanned;
 import android.util.Log;
+import android.view.KeyEvent;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -11,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.buscandohuellas.databinding.ActivityAuthBinding;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
@@ -35,15 +41,36 @@ public class AuthActivity extends AppCompatActivity {
         binding = ActivityAuthBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        //Put filter to editText to prevent input of whitespaces
+        TextInputEditText inputCorreo = binding.editTextCorreo;
+        TextInputEditText inputContrasena = binding.editTextContrasena;
+        inputContrasena.setFilters(new InputFilter[] { filter });
+        inputCorreo.setFilters(new InputFilter[] { filter });
+
         //Setup
         setup();
     }
 
+    //Filter to disable whitespaces
+    InputFilter filter = new InputFilter() {
+        public CharSequence filter(CharSequence source, int start, int end,
+                                   Spanned dest, int dstart, int dend) {
+            for (int i = start; i < end; i++) {
+                if (Character.isWhitespace(source.charAt(i))) {
+                    return "";
+                }
+            }
+            return null;
+        }
+
+    };
+
+
     private void setup() {
-        String title = "Autenticación";
+        //Define action when clicking Sign Up button
         binding.SignUpButton.setOnClickListener(view -> {
             if (Objects.requireNonNull(binding.LoginCorreo.getEditText()).getText().toString().length() > 0
-            && Objects.requireNonNull(binding.LoginContrasena.getEditText()).getText().toString().length() > 0) {
+            && Objects.requireNonNull(binding.LoginContrasena.getEditText()).getText().toString().length() > 7) {
                 FirebaseAuth.getInstance().createUserWithEmailAndPassword(binding.LoginCorreo.getEditText().getText().toString(),
                 binding.LoginContrasena.getEditText().getText().toString()).addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
@@ -53,9 +80,12 @@ public class AuthActivity extends AppCompatActivity {
                         showAlert();
                     }
                 });
+            } else {
+                Toast.makeText(this, "La contraseña debe tener por lo menos 8 caracteres", Toast.LENGTH_SHORT).show();
             }
         });
 
+        //Define action when clicking Log in button
         binding.LogInButton.setOnClickListener(view -> {
             if (Objects.requireNonNull(binding.LoginCorreo.getEditText()).getText().toString().length() > 0
                     && Objects.requireNonNull(binding.LoginContrasena.getEditText()).getText().toString().length() > 0) {

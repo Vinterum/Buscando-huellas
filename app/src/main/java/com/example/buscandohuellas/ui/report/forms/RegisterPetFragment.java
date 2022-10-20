@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.ContentResolver;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -15,6 +16,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.MimeTypeMap;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
@@ -31,19 +33,16 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 
 import com.example.buscandohuellas.R;
 import com.example.buscandohuellas.databinding.FragmentRegisterPetBinding;
 import com.example.buscandohuellas.ui.report.ReportViewModel;
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.ServerTimestamp;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
@@ -72,6 +71,7 @@ public class RegisterPetFragment extends Fragment {
     String comportamiento;
     String contacto;
     String imageUrl;
+    String id;
 
     //Upload image variables
     private ImageView dogImage;
@@ -113,6 +113,9 @@ public class RegisterPetFragment extends Fragment {
         dogImage = binding.dogImage;
         storage = FirebaseStorage.getInstance();
 
+
+        //action = RegisterPetFragmentDirections.registerToLocationForm(id);
+
         // After clicking on text we will have
         // to choose whether to
         // select image from camera and gallery
@@ -131,10 +134,11 @@ public class RegisterPetFragment extends Fragment {
                     && binding.ssRaza.getText().toString().length() > 0
                     && binding.detallesApariencia.getText().toString().length() > 0
                     && binding.detallesSalud.getText().toString().length() > 0
+                    && binding.contacto.getText().toString().length() > 0
                     && sexoBool && tamanoBool && colorBool && edadBool && comportamientoBool && imgBool && dbImgBool) {
                 addDogToDB();
-                NavDirections navDirections = RegisterPetFragmentDirections.registerToLocationForm();
-                Navigation.findNavController(view).navigate(navDirections);
+                RegisterPetFragmentDirections.RegisterToLocationForm action = RegisterPetFragmentDirections.registerToLocationForm(nombre);
+                Navigation.findNavController(view).navigate(action);
             } else {
                 Toast.makeText(getActivity(), "Llena todos los campos obligatorios", Toast.LENGTH_SHORT).show();
             }
@@ -294,13 +298,13 @@ public class RegisterPetFragment extends Fragment {
         pd.show();
         storageReference = storage.getReference()
                 .child("images")
-                .child(System.currentTimeMillis() + "");
+                .child(System.currentTimeMillis() + "." + getFileExtension(imageUri));
         storageReference.putFile(imageUri)
                 .addOnSuccessListener(taskSnapshot -> {
                     pd.dismiss();
                     imgBool = true;
                     Toast.makeText(RegisterPetFragment.this.getActivity().getApplicationContext(), "Imagen subida", Toast.LENGTH_LONG).show();
-                    String imageUrl = taskSnapshot.getStorage().getDownloadUrl().toString();
+                    storageReference.getDownloadUrl().addOnSuccessListener(uri -> imageUrl = uri.toString());
                 })
                 .addOnFailureListener(e -> {
                     dbImgBool = false;
@@ -313,12 +317,19 @@ public class RegisterPetFragment extends Fragment {
                 });
     }
 
+    private String getFileExtension(Uri imageUri) {
+        ContentResolver cr = getActivity().getApplicationContext().getContentResolver();
+        MimeTypeMap mime = MimeTypeMap.getSingleton();
+        return mime.getExtensionFromMimeType(cr.getType(imageUri));
+    }
+
     private void addDogToDB() {
         nombre = binding.nombreMascota.getText().toString();
         raza = binding.ssRaza.getText().toString();
         detallesAp = binding.detallesApariencia.getText().toString();
         detallesSalud = binding.detallesSalud.getText().toString();
         contacto = binding.contacto.getText().toString();
+
         Map<String, Object> dog = new HashMap<>();
         dog.put("nombre", nombre);
         dog.put("raza", raza);
@@ -336,8 +347,9 @@ public class RegisterPetFragment extends Fragment {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
             String uid = user.getUid();
+            id = nombre + uid;
 
-            db.collection("Usuarios").document(uid).collection("MisPerros").document(nombre).set(dog)
+            db.collection("Usuarios").document(uid).collection("MisPerros").document(id).set(dog)
                     .addOnSuccessListener(unused -> Log.d(TAG, "DocumentSnapshot added"))
                     .addOnFailureListener(e -> Log.w(TAG, "Error adding document", e));
         }

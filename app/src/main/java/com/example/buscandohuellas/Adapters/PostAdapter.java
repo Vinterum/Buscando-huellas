@@ -4,11 +4,13 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.buscandohuellas.Dog;
 import com.example.buscandohuellas.Place;
 import com.example.buscandohuellas.R;
@@ -57,6 +59,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
         holder.detalleApPerro.setText(sDetalleAp);
         holder.edadPerro.setText(sEdad);
         holder.comportamientoPerro.setText(sComportamiento);
+        Glide.with(mContext).load(mData.get(position).getImageUrl());
     }
 
     @Override
@@ -77,6 +80,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
         TextView detalleApPerro;
         TextView edadPerro;
         TextView comportamientoPerro;
+        ImageView imgPerro;
 
         public MyViewHolder(View itemView){
             super(itemView);
@@ -92,6 +96,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
             colorPerro = itemView.findViewById(R.id.colorPerro);
             detalleApPerro = itemView.findViewById(R.id.detalleApPerro);
             comportamientoPerro = itemView.findViewById(R.id.comportamientoPerro);
+            imgPerro = itemView.findViewById(R.id.dog_pic);
         }
 
     }

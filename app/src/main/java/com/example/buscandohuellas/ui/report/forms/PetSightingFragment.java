@@ -1,20 +1,35 @@
 package com.example.buscandohuellas.ui.report.forms;
 
+import android.Manifest;
+import android.app.Activity;
 import android.app.Dialog;
+import android.app.ProgressDialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,9 +37,48 @@ import android.widget.Toast;
 import com.example.buscandohuellas.R;
 import com.example.buscandohuellas.databinding.FragmentPetSightingBinding;
 import com.example.buscandohuellas.databinding.FragmentRegisterPetBinding;
+import com.example.buscandohuellas.ui.report.ReportViewModel;
+import com.google.firebase.Timestamp;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import permissions.dispatcher.NeedsPermission;
+import permissions.dispatcher.OnNeverAskAgain;
+import permissions.dispatcher.OnPermissionDenied;
+import permissions.dispatcher.OnShowRationale;
+import permissions.dispatcher.PermissionRequest;
+import permissions.dispatcher.RuntimePermissions;
+
+@RuntimePermissions
 public class PetSightingFragment extends Fragment {
 
+    //Datos
+    String raza;
+    String sexo;
+    String tamano;
+    String color;
+    String edad;
+    String detallesAp;
+    String comportamiento;
+    String contacto;
+    String imageUrl;
+    String id;
+
+    //Upload image variables
+    private ImageView dogImage;
+    public Uri imageUri;
+    private FirebaseStorage storage;
+    private StorageReference storageReference;
+    boolean imgBool = false;
+    boolean dbImgBool = true;
+
+    //Spinners variables
     TextView textView;
     Dialog dialog;
     AutoCompleteTextView spinnerSexo;
@@ -32,24 +86,68 @@ public class PetSightingFragment extends Fragment {
     AutoCompleteTextView spinnerColor;
     AutoCompleteTextView spinnerEdad;
     AutoCompleteTextView spinnerComportamiento;
-    private FragmentPetSightingBinding binding;
+    boolean sexoBool = false;
+    boolean tamanoBool = false;
+    boolean colorBool = false;
+    boolean edadBool = false;
+    boolean comportamientoBool = false;
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+    private FragmentPetSightingBinding binding;
+    private final FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private static final String TAG = "Register Database";
+
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             ViewGroup container, Bundle savedInstanceState) {
+        ReportViewModel notificationsViewModel =
+                new ViewModelProvider(this).get(ReportViewModel.class);
+
         binding = FragmentPetSightingBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
+        initializeSpinners();
+
+        //Image
+        dogImage = binding.dogImageAv;
+        storage = FirebaseStorage.getInstance();
+
+
+        //action = RegisterPetFragmentDirections.registerToLocationForm(id);
+
+        // After clicking on text we will have
+        // to choose whether to
+        // select image from camera and gallery
+        dogImage.setOnClickListener(view -> {
+            choosePicture();
+        });
+
+        //Select image button onClickListener
+        dogImage.setOnClickListener(view -> {
+            PetSightingFragmentPermissionsDispatcher.choosePictureWithPermissionCheck(PetSightingFragment.this);
+        });
+
+        //Botón registro
+        binding.registraAvistamientoBoton.setOnClickListener(view -> {
+            if (binding.ssRazaAv.getText().toString().length() > 0
+                    && binding.detallesAparienciaAv.getText().toString().length() > 0
+                    && binding.contactoAv.getText().toString().length() > 0
+                    && sexoBool && tamanoBool && colorBool && edadBool && comportamientoBool && imgBool && dbImgBool) {
+                addDogToDB();
+                PetSightingFragmentDirections.PetSightingToLocationForm action = PetSightingFragmentDirections.petSightingToLocationForm(id);
+                Navigation.findNavController(view).navigate(action);
+            } else {
+                Toast.makeText(getActivity(), "Llena todos los campos obligatorios", Toast.LENGTH_SHORT).show();
+            }
+        });
+
         //initialize searchable spinner for raza
-        textView = binding.ssRaza;
+        textView = binding.ssRazaAv;
         textView.setOnClickListener(view -> {
             //initialize dialog
             dialog = new Dialog(getActivity());
             //set custom dialog
             dialog.setContentView(R.layout.ss_dialog);
             //set custom width and height
-            dialog.getWindow().setLayout(800,950);
+            dialog.getWindow().setLayout(800, 950);
             //set transparent background
             dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
             dialog.show();
@@ -84,17 +182,43 @@ public class PetSightingFragment extends Fragment {
             });
         });
 
+        //check if option was selected on spinners
+        spinnerSexo.setOnItemClickListener((p, v, pos, id) -> {
+            sexo = (String) p.getItemAtPosition(pos);
+            sexoBool = true;
+        });
+        spinnerTamano.setOnItemClickListener((p, v, pos, id) -> {
+            tamano = (String) p.getItemAtPosition(pos);
+            tamanoBool = true;
+        });
+        spinnerColor.setOnItemClickListener((p, v, pos, id) -> {
+            color = (String) p.getItemAtPosition(pos);
+            colorBool = true;
+        });
+        spinnerEdad.setOnItemClickListener((p, v, pos, id) -> {
+            edad = (String) p.getItemAtPosition(pos);
+            edadBool = true;
+        });
+        spinnerComportamiento.setOnItemClickListener((p, v, pos, id) -> {
+            comportamiento = (String) p.getItemAtPosition(pos);
+            comportamientoBool = true;
+        });
+
+        return root;
+    }
+
+    private void initializeSpinners() {
         ArrayAdapter<CharSequence> adapterSexo = ArrayAdapter.createFromResource(getActivity(), R.array.lista_sexo, R.layout.drop_down_item);
         ArrayAdapter<CharSequence> adapterTamano = ArrayAdapter.createFromResource(getActivity(), R.array.lista_tamaño, R.layout.drop_down_item);
         ArrayAdapter<CharSequence> adapterColor = ArrayAdapter.createFromResource(getActivity(), R.array.lista_color, R.layout.drop_down_item);
         ArrayAdapter<CharSequence> adapterEdad = ArrayAdapter.createFromResource(getActivity(), R.array.lista_edad, R.layout.drop_down_item);
         ArrayAdapter<CharSequence> adapterComportamiento = ArrayAdapter.createFromResource(getActivity(), R.array.lista_comportamiento, R.layout.drop_down_item);
 
-        spinnerSexo = binding.filledSexo;
-        spinnerTamano = binding.filledTamano;
-        spinnerColor = binding.filledColor;
-        spinnerEdad = binding.filledEdad;
-        spinnerComportamiento = binding.filledComportamiento;
+        spinnerSexo = binding.filledSexoAv;
+        spinnerTamano = binding.filledTamanoAv;
+        spinnerColor = binding.filledColorAv;
+        spinnerEdad = binding.filledEdadAv;
+        spinnerComportamiento = binding.filledComportamientoAv;
 
         spinnerSexo.setAdapter(adapterSexo);
         spinnerTamano.setAdapter(adapterTamano);
@@ -112,8 +236,110 @@ public class PetSightingFragment extends Fragment {
                 Toast.makeText(getActivity(), spinnerEdad.getText().toString(), Toast.LENGTH_SHORT).show());
         spinnerComportamiento.setOnItemClickListener((adapterView, view, i, l) ->
                 Toast.makeText(getActivity(), spinnerComportamiento.getText().toString(), Toast.LENGTH_SHORT).show());
+    }
 
-        return root;
+    //Upload picture
+    ActivityResultLauncher<Intent> startActivityIntent = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            (ActivityResultCallback<ActivityResult>) result -> {
+                if (result.getResultCode() == Activity.RESULT_OK) {
+                    Intent data = result.getData();
+                    if (data != null) {
+                        imageUri = data.getData();
+                        imageUri.getLastPathSegment();
+                        uploadPicture();
+                        if (dbImgBool) {
+                            dogImage.setImageURI(imageUri);
+                        }
+                    }
+                }
+            }
+    );
+
+
+    //Permission dispatcher
+    @NeedsPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
+    public void choosePicture() {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        dbImgBool = true;
+        startActivityIntent.launch(intent);
+    }
+
+    @OnShowRationale(Manifest.permission.READ_EXTERNAL_STORAGE)
+    void showRationaleForGallery(final PermissionRequest request) {
+        new AlertDialog.Builder(getActivity())
+                .setMessage(R.string.mensaje_permitir)
+                .setPositiveButton(R.string.permitir, (dialog, button) -> request.proceed())
+                .setNegativeButton(R.string.cancelar, (dialog, button) -> request.cancel())
+                .show();
+    }
+
+    @OnPermissionDenied(Manifest.permission.READ_EXTERNAL_STORAGE)
+    void onCameraDenied() {
+        Toast.makeText(getActivity(), R.string.permiso_denegado, Toast.LENGTH_SHORT).show();
+    }
+
+    @OnNeverAskAgain(Manifest.permission.READ_EXTERNAL_STORAGE)
+    void onCameraNeverAskAgain() {
+        Toast.makeText(getActivity(), R.string.no_preguntar, Toast.LENGTH_SHORT).show();
+    }
+
+
+    private void uploadPicture() {
+        final ProgressDialog pd = new ProgressDialog(getActivity());
+        pd.setTitle("Subiendo Imágen...");
+        pd.show();
+        storageReference = storage.getReference()
+                .child("images")
+                .child(System.currentTimeMillis() + "");
+        storageReference.putFile(imageUri)
+                .addOnSuccessListener(taskSnapshot -> {
+                    pd.dismiss();
+                    imgBool = true;
+                    Toast.makeText(PetSightingFragment.this.getActivity().getApplicationContext(), "Imagen subida", Toast.LENGTH_LONG).show();
+                    imageUrl = taskSnapshot.getStorage().getDownloadUrl().toString();
+                })
+                .addOnFailureListener(e -> {
+                    dbImgBool = false;
+                    pd.dismiss();
+                    Toast.makeText(PetSightingFragment.this.getActivity().getApplicationContext(), "Resolución muy alta, use otra imágen", Toast.LENGTH_LONG).show();
+                })
+                .addOnProgressListener(snapshot -> {
+                    double progressPercent = (100.00 * snapshot.getBytesTransferred() / snapshot.getTotalByteCount());
+                    pd.setMessage("Percentage: " + (int) progressPercent + "%");
+                });
+    }
+
+    private void addDogToDB() {
+        raza = binding.ssRazaAv.getText().toString();
+        detallesAp = binding.detallesAparienciaAv.getText().toString();
+        contacto = binding.contactoAv.getText().toString();
+
+        Map<String, Object> dog = new HashMap<>();
+        dog.put("raza", raza);
+        dog.put("sexo", sexo);
+        dog.put("tamano", tamano);
+        dog.put("color", color);
+        dog.put("edad", edad);
+        dog.put("detalles_ap", detallesAp);
+        dog.put("comportamiento", comportamiento);
+        dog.put("contacto", contacto);
+        dog.put("imageUrl", imageUrl);
+        dog.put("timestamp", Timestamp.now());
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            String uid = user.getUid();
+            db.collection("Usuarios").document(uid).collection("MisPerros").add(dog)
+                    .addOnSuccessListener(unused -> {
+                        id = unused.getId();
+                        Log.d(TAG, "DocumentSnapshot added");
+                    })
+                    .addOnFailureListener(e -> Log.w(TAG, "Error adding document", e));
+        }
+
     }
 
     @Override

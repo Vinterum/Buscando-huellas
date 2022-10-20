@@ -7,6 +7,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavDirections;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -14,12 +16,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.example.buscandohuellas.Adapters.RegisterPetAdapter;
 import com.example.buscandohuellas.Dog;
 import com.example.buscandohuellas.R;
 import com.example.buscandohuellas.databinding.FragmentMyPetsBinding;
 import com.example.buscandohuellas.databinding.FragmentRegisterPetBinding;
+import com.example.buscandohuellas.ui.report.ReportFragmentDirections;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentChange;
@@ -37,6 +41,7 @@ public class MyPetsFragment extends Fragment {
     ArrayList<Dog> dogArrayList;
     RegisterPetAdapter registerPetAdapter;
     FirebaseFirestore db;
+    ImageView add;
 
     public static MyPetsFragment newInstance() {
         return new MyPetsFragment();
@@ -55,6 +60,13 @@ public class MyPetsFragment extends Fragment {
         dogArrayList = new ArrayList<Dog>();
         registerPetAdapter = new RegisterPetAdapter(MyPetsFragment.this.getActivity(), dogArrayList);
         registerRecyclerView.setAdapter(registerPetAdapter);
+        add = binding.add;
+
+        //add dog button
+        add.setOnClickListener(view -> {
+            NavDirections navDirections = MyPetsFragmentDirections.mypetsToRegisterPetFragment();
+            Navigation.findNavController(view).navigate(navDirections);
+        });
         
         EventChangeListener();
 

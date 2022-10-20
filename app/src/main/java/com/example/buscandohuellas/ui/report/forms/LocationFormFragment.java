@@ -56,8 +56,10 @@ public class LocationFormFragment extends Fragment implements OnMapReadyCallback
     String lugar;
     String detalles_ubi;
     String fecha;
+    String nombre;
     double latitud;
     double longitud;
+    String id;
 
     //binding
     private FragmentLocationFormBinding binding;
@@ -177,7 +179,8 @@ public class LocationFormFragment extends Fragment implements OnMapReadyCallback
         mMap = googleMap;
         mMap.setMinZoomPreference(15f);
         mMap.setMaxZoomPreference(20f);
-        // Add a marker in Sydney and move the camera
+
+        // Add a marker in Puebla and move the camera
         LatLng puebla = new LatLng(19.041135850693273, -98.20591993210466);
         mMap.moveCamera(CameraUpdateFactory.newLatLng(puebla));
     }
@@ -230,10 +233,18 @@ public class LocationFormFragment extends Fragment implements OnMapReadyCallback
     }
 
     private void addPlaceToDB() {
+        nombre = LocationFormFragmentArgs.fromBundle(getArguments()).getNombrePerro();
         lugar = binding.lugarElegido.getText().toString();
         detalles_ubi = binding.detallesUbicacion.getText().toString();
         fecha = binding.editaFecha.getText().toString();
+
+        //Get user from database
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String uid = user.getUid();
+        id = nombre + uid;
         Map<String, Object> place = new HashMap<>();
+        place.put("idPerro", id);
+        place.put("nombre", nombre);
         place.put("lugar", lugar);
         place.put("detalles_ubi", detalles_ubi);
         place.put("fecha", fecha);
@@ -241,14 +252,11 @@ public class LocationFormFragment extends Fragment implements OnMapReadyCallback
         place.put("longitud", longitud);
         place.put("timestamp", Timestamp.now());
 
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
-            String uid = user.getUid();
             db.collection("Usuarios").document(uid).collection("DatosExtravio").add(place)
                     .addOnSuccessListener(unused -> Log.d(TAG, "DocumentSnapshot added"))
                     .addOnFailureListener(e -> Log.w(TAG, "Error adding document", e));
         }
-
     }
 
     @Override

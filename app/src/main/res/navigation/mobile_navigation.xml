@@ -34,11 +34,15 @@
         android:id="@+id/navigation_mypets"
         android:name="com.example.buscandohuellas.ui.mypets.MyPetsFragment"
         android:label="@string/title_mypets"
-        tools:layout="@layout/fragment_my_pets" />
+        tools:layout="@layout/fragment_my_pets" >
+        <action
+            android:id="@+id/mypets_to_registerPetFragment"
+            app:destination="@id/registerPetFragment" />
+    </fragment>
     <fragment
         android:id="@+id/registerPetFragment"
         android:name="com.example.buscandohuellas.ui.report.forms.RegisterPetFragment"
-        android:label="fragment_register_pet"
+        android:label="@string/title_register"
         tools:layout="@layout/fragment_register_pet" >
         <action
             android:id="@+id/register_to_location_form"
@@ -47,13 +51,20 @@
     <fragment
         android:id="@+id/petSightingFragment"
         android:name="com.example.buscandohuellas.ui.report.forms.PetSightingFragment"
-        android:label="PetSightingFragment"
-        tools:layout="@layout/fragment_pet_sighting"/>
+        android:label="@string/title_reporta"
+        tools:layout="@layout/fragment_pet_sighting">
+        <action
+            android:id="@+id/petSighting_to_locationForm"
+            app:destination="@id/locationFormFragment" />
+    </fragment>
     <fragment
         android:id="@+id/locationFormFragment"
         android:name="com.example.buscandohuellas.ui.report.forms.LocationFormFragment"
-        android:label="fragment_location_form"
-        tools:layout="@layout/fragment_location_form" >
+        android:label="@string/title_register_sighting"
+        tools:layout="@layout/fragment_location_form">
+        <argument
+            android:name="nombrePerro"
+            app:argType="string"/>
         <action
             android:id="@+id/location_to_find"
             app:destination="@id/navigation_find" />

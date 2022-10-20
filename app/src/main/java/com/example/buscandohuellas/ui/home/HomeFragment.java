@@ -23,6 +23,7 @@ import com.example.buscandohuellas.databinding.FragmentMyPetsBinding;
 import com.example.buscandohuellas.ui.mypets.MyPetsFragment;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -61,7 +62,7 @@ public class HomeFragment extends Fragment {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
             String uid = user.getUid();
-            db.collection("Usuarios").document(uid).collection("MisPerros").addSnapshotListener((value, error) -> {
+            db.collectionGroup("MisPerros").addSnapshotListener((value, error) -> {
                 if (error != null){
                     Log.e("Firestore error", error.getMessage());
                     return;

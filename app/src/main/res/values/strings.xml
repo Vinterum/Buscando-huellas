@@ -395,4 +395,7 @@
     <string name="cancelar">Cancelar</string>
     <string name="permitir">Ok</string>
     <string name="mensaje_permitir">Este permiso se necesita para elegir una foto</string>
+    <string name="title_register">Registra tu perro</string>
+    <string name="title_reporta">Reporta un perro</string>
+    <string name="title_register_sighting">Registra un avistamiento</string>
 </resources>

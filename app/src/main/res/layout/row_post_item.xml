@@ -36,6 +36,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:text="TextView"
+        android:gravity="center"
         android:textColor="@color/black"
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="@+id/pesoPerro"
@@ -45,14 +46,15 @@
     <TextView
         android:id="@+id/nombrePerro"
         android:layout_width="0dp"
-        app:layout_constraintWidth_percent="0.3"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="18dp"
         android:text="TextView"
         android:textColor="@color/black"
         android:textSize="12sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dog_pic" />
+        app:layout_constraintTop_toBottomOf="@+id/dog_pic"
+        app:layout_constraintWidth_percent="0.3" />
 
     <TextView
         android:id="@+id/razaPerro"
@@ -63,6 +65,7 @@
         android:text="TextView"
         android:textColor="@color/black"
         android:textSize="12sp"
+        android:gravity="center"
         app:layout_constraintEnd_toStartOf="@+id/sexoPerro"
         app:layout_constraintStart_toEndOf="@+id/nombrePerro"
         app:layout_constraintTop_toBottomOf="@+id/dog_pic" />
@@ -70,14 +73,16 @@
     <TextView
         android:id="@+id/sexoPerro"
         android:layout_width="0dp"
-        app:layout_constraintWidth_percent="0.3"
         android:layout_height="wrap_content"
         android:layout_marginTop="18dp"
+        android:layout_marginEnd="8dp"
         android:text="TextView"
+        android:gravity="right"
         android:textColor="@color/black"
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dog_pic" />
+        app:layout_constraintTop_toBottomOf="@+id/dog_pic"
+        app:layout_constraintWidth_percent="0.3" />
 
     <TextView
         android:id="@+id/detalleSaludPerro"
@@ -86,6 +91,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:text="TextView"
+        android:gravity="right"
         android:textColor="@color/black"
         android:textSize="12sp"
         app:layout_constraintStart_toStartOf="@+id/colorPerro"
@@ -98,6 +104,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:text="TextView"
+        android:gravity="center"
         android:textColor="@color/black"
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="@+id/razaPerro"
@@ -111,6 +118,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:text="TextView"
+        android:gravity="right"
         android:textColor="@color/black"
         android:textSize="12sp"
         app:layout_constraintStart_toStartOf="@+id/sexoPerro"
